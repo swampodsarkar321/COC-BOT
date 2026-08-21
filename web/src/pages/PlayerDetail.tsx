@@ -33,7 +33,7 @@ export function PlayerCardInline({ player }: { player: any }) {
 
   const save = async () => {
     try {
-      await saveCard(ref.current, `coc-player-${player.tag.replace(/^#/, '')}.png`);
+      await saveCard(ref.current, `coc-player-${(player.tag ?? '').replace(/^#/, '')}.png`);
     } catch (e) {
       alert('PNG export failed: ' + ((e as Error)?.message ?? e));
     }
@@ -48,7 +48,7 @@ export function PlayerCardInline({ player }: { player: any }) {
             <div className="pc-inline-name">{player.name}</div>
             <div className="pc-inline-sub">{player.tag} · TH{player.townHallLevel} · {player.league ?? 'Unranked'} · Lvl {player.expLevel}</div>
           </div>
-          <div className="pc-inline-trophies">🏆<br />{player.trophies.toLocaleString()}</div>
+          <div className="pc-inline-trophies">🏆<br />{(player.trophies ?? 0).toLocaleString()}</div>
         </div>
         {player.clan && (
           <div className="pc-inline-clan">🛡️ {player.clan.name} <span className="pc-inline-role">{player.role}</span> <span className="pc-inline-ctag">{player.clan.tag}</span></div>
@@ -90,7 +90,7 @@ export default function PlayerDetail({ tag, player: initial }: { tag: string; pl
 
   const savePng = async () => {
     try {
-      await saveCard(cardRef.current, `coc-player-${player.tag.replace(/^#/, '')}.png`);
+      await saveCard(cardRef.current, `coc-player-${(player.tag ?? '').replace(/^#/, '')}.png`);
     } catch (e) {
       alert('PNG export failed: ' + ((e as Error)?.message ?? e));
     }
@@ -109,7 +109,7 @@ export default function PlayerDetail({ tag, player: initial }: { tag: string; pl
         <div className="pcard-head">
           <div className="pc-row">
             <div className="pc-name">{player.name}</div>
-            <div className="pc-trophies">🏆 {player.trophies.toLocaleString()}</div>
+            <div className="pc-trophies">🏆 {(player.trophies ?? 0).toLocaleString()}</div>
           </div>
           <div className="pc-sub">
             {player.tag} · TH{player.townHallLevel} · {player.league ?? 'Unranked'} · Exp {player.expLevel}
@@ -177,7 +177,7 @@ export default function PlayerDetail({ tag, player: initial }: { tag: string; pl
                       ))}
                     </div>
                     <div className="bar"><span style={{ width: `${pct}%` }} /></div>
-                    <div className="ach-val">{a.value.toLocaleString()} / {a.target.toLocaleString()}</div>
+                    <div className="ach-val">{(a.value ?? 0).toLocaleString()} / {(a.target ?? 0).toLocaleString()}</div>
                   </div>
                 );
               })}

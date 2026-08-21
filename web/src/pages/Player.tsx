@@ -154,7 +154,7 @@ export default function Player() {
                       <span style={{ width: `${pct}%` }} />
                     </div>
                     <div className="ach-val">
-                      {a.value.toLocaleString()} / {a.target.toLocaleString()}
+                      {(a.value ?? 0).toLocaleString()} / {(a.target ?? 0).toLocaleString()}
                     </div>
                   </div>
                 );
