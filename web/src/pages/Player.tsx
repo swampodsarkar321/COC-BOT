@@ -28,7 +28,7 @@ function UnitCard({
 }) {
   return (
     <div className="unit-grid">
-      {items.map((u) => (
+      {(items ?? []).map((u) => (
         <div className="unit-card" key={u.name}>
           <Icon name={u.name} type={type} />
           <div className="uc-name">{u.name}</div>
@@ -140,7 +140,7 @@ export default function Player() {
           <div className="card">
             <h3>Achievements</h3>
             <div className="ach-grid">
-              {player.achievements.map((a: any) => {
+              {(player.achievements ?? []).map((a: any) => {
                 const pct = a.target ? Math.min(100, Math.round((a.value / a.target) * 100)) : 0;
                 return (
                   <div className="ach-card" key={a.name}>

@@ -14,7 +14,7 @@ function Icon({ name, type }: { name: string; type: 'troops' | 'spells' | 'heroe
 function UnitCard({ items, type }: { items: any[]; type: 'troops' | 'spells' | 'heroes' }) {
   return (
     <div className="unit-grid">
-      {items.map((u) => (
+      {(items ?? []).map((u) => (
         <div className="unit-card" key={u.name}>
           <Icon name={u.name} type={type} />
           <div className="uc-name">{u.name}</div>
@@ -57,12 +57,12 @@ export function PlayerCardInline({ player }: { player: any }) {
           Best {player.bestTrophies} · ⚔️ {player.warStars} war stars · Atk {player.attackWins}/Def {player.defenseWins} · Don {player.donations}/{player.received}
         </div>
         <div className="pc-inline-heroes">
-          {player.heroes.map((h: any) => (
+          {(player.heroes ?? []).map((h: any) => (
             <span className="pc-chip" key={h.name}>{h.name} {h.level}/{h.maxLevel}</span>
           ))}
         </div>
         <div className="pc-inline-counts">
-          Troops {player.troops.length} · Spells {player.spells.length} · Equip {player.heroEquipment?.length ?? 0}
+          Troops {(player.troops ?? []).length} · Spells {(player.spells ?? []).length} · Equip {player.heroEquipment?.length ?? 0}
         </div>
       </div>
       <button className="more-btn" onClick={save}>⬇ Save PNG</button>
@@ -166,7 +166,7 @@ export default function PlayerDetail({ tag, player: initial }: { tag: string; pl
           <div className="pc-section">
             <h3>Achievements</h3>
             <div className="ach-grid">
-              {player.achievements.map((a: any) => {
+              {(player.achievements ?? []).map((a: any) => {
                 const pct = a.target ? Math.min(100, Math.round((a.value / a.target) * 100)) : 0;
                 return (
                   <div className="ach-card" key={a.name}>
