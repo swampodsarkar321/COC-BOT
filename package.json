@@ -11,9 +11,5 @@
     "build": "npm run build --workspace=server && npm run build --workspace=web",
     "dev:web": "npm run dev --workspace=web",
     "dev:server": "npm run dev --workspace=server"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.0"
   }
 }
