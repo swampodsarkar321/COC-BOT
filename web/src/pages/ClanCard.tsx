@@ -7,7 +7,7 @@ export default function ClanCardInline({ clan, onMember }: { clan: any; onMember
   return (
     <div className="cc-inline">
       <div className="cc-head">
-        <div className="cc-av">{clan.name.charAt(0)}</div>
+        <div className="cc-av">{(clan?.name ?? '').charAt(0)}</div>
         <div className="cc-id">
           <div className="cc-name">{clan.name}</div>
           <div className="cc-sub">{clan.tag} · Lvl {clan.clanLevel} · {clan.members}/50 members</div>

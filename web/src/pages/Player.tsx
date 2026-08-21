@@ -5,7 +5,7 @@ import { unitImage } from '../unitImage';
 
 function Icon({ name, type }: { name: string; type: 'troops' | 'spells' | 'heroes' }) {
   const [err, setErr] = useState(false);
-  if (err) return <span className="uc-fallback">{name.charAt(0)}</span>;
+  if (err || !name) return <span className="uc-fallback">{(name ?? '').charAt(0)}</span>;
   return (
     <img
       className="uc-icon"
@@ -118,7 +118,7 @@ export default function Player() {
               <div className="unit-grid">
                 {player.heroEquipment.map((e: any) => (
                   <div className="unit-card" key={e.name}>
-                    <div className="uc-fallback">{e.name.charAt(0)}</div>
+                    <div className="uc-fallback">{(e.name ?? '').charAt(0)}</div>
                     <div className="uc-name">{e.name}</div>
                     <div className="uc-lvl">{e.level}<small> / {e.maxLevel}</small></div>
                   </div>

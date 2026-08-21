@@ -5,7 +5,7 @@ import { saveCard } from '../png';
 
 function Icon({ name, type }: { name: string; type: 'troops' | 'spells' | 'heroes' }) {
   const [err, setErr] = useState(false);
-  if (err) return <span className="uc-fallback">{name.charAt(0)}</span>;
+  if (err || !name) return <span className="uc-fallback">{(name ?? '').charAt(0)}</span>;
   return (
     <img className="uc-icon" src={unitImage(name, type)} alt={name} loading="lazy" onError={() => setErr(true)} />
   );
@@ -43,7 +43,7 @@ export function PlayerCardInline({ player }: { player: any }) {
     <>
       <div className="pc-inline" ref={ref}>
         <div className="pc-inline-head">
-          <div className="pc-av">{player.name.charAt(0)}</div>
+          <div className="pc-av">{(player?.name ?? '').charAt(0)}</div>
           <div className="pc-inline-id">
             <div className="pc-inline-name">{player.name}</div>
             <div className="pc-inline-sub">{player.tag} · TH{player.townHallLevel} · {player.league ?? 'Unranked'} · Lvl {player.expLevel}</div>
@@ -144,7 +144,7 @@ export default function PlayerDetail({ tag, player: initial }: { tag: string; pl
               <div className="unit-grid">
                 {player.heroEquipment.map((e: any) => (
                   <div className="unit-card" key={e.name}>
-                    <div className="uc-fallback">{e.name.charAt(0)}</div>
+                    <div className="uc-fallback">{(e.name ?? '').charAt(0)}</div>
                     <div className="uc-name">{e.name}</div>
                     <div className="uc-lvl">{e.level}<small> / {e.maxLevel}</small></div>
                   </div>
