@@ -14,7 +14,7 @@ router.get('/locations', async (_req, res, next) => {
 
 router.get('/:locationId/clans', async (req, res, next) => {
   try {
-    const clans = await client.getClanRanks(Number(req.params.locationId));
+    const clans: any[] = await client.getClanRanks(Number(req.params.locationId));
     res.json(clans.map((c) => ({ name: c.name, tag: c.tag, points: c.clanPoints, members: c.members })));
   } catch (err) {
     next(err);

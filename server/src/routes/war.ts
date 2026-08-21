@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/:tag/current', async (req, res, next) => {
   try {
-    const war = await client.getClanWar(tag(req.params.tag));
+    const war: any = await client.getClanWar(tag(req.params.tag));
     res.json({
       state: war.state,
       teamSize: war.teamSize,
@@ -27,7 +27,7 @@ router.get('/:tag/current', async (req, res, next) => {
         destructionPercentage: war.opponent.destructionPercentage,
         attacks: war.opponent.attacks?.length ?? 0
       },
-      attacks: (war.attacks ?? []).map((a) => ({
+      attacks: ((war.attacks ?? []) as any[]).map((a: any) => ({
         order: a.order,
         attacker: a.attacker?.name,
         attackerTag: a.attackerTag,
@@ -37,13 +37,13 @@ router.get('/:tag/current', async (req, res, next) => {
         destruction: a.destruction,
         duration: a.duration
       })),
-      members: (war.clan?.members ?? []).map((m) => ({
+      members: ((war.clan?.members ?? []) as any[]).map((m: any) => ({
         name: m.name,
         tag: m.tag,
         mapPosition: m.mapPosition,
         townHallLevel: m.townHallLevel,
-        attacks: m.attacks?.length ?? 0,
-        stars: m.attacks?.reduce((s, a) => s + a.stars, 0) ?? 0,
+        attacks: (m.attacks ?? []).length,
+        stars: (m.attacks ?? []).reduce((s: number, a: any) => s + a.stars, 0),
         defenseCount: m.defenseCount
       }))
     });

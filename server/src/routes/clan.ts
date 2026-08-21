@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/:tag', async (req, res, next) => {
   try {
-    const clan = await client.getClan(tag(req.params.tag));
+    const clan: any = await client.getClan(tag(req.params.tag));
     res.json({
       name: clan.name,
       tag: clan.tag,
@@ -21,7 +21,7 @@ router.get('/:tag', async (req, res, next) => {
       description: clan.description,
       type: clan.type,
       location: clan.location?.name,
-      memberList: clan.members.map((m) => ({
+      memberList: clan.members.map((m: any) => ({
         name: m.name,
         tag: m.tag,
         role: m.role,
