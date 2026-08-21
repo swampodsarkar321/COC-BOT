@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+out/
+*.log
+*.tsbuildinfo
+.env
+.env.*
+.serverless/
+.vercel/
+
+# keep example env tracked
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db

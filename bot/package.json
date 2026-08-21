@@ -1,0 +1,21 @@
+{
+  "name": "coc-telegram-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for Clash of Clans (wraps clashofclans.js)",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/bot.ts",
+    "build": "tsc",
+    "start": "node dist/bot.js"
+  },
+  "dependencies": {
+    "clashofclans.js": "latest",
+    "dotenv": "^16.4.5",
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
