@@ -10,6 +10,7 @@ export const client = new Client({
 });
 
 let loggedIn = false;
+let loginPromise: Promise<void> | null = null;
 
 export async function login(): Promise<void> {
   if (loggedIn) return;
@@ -23,11 +24,23 @@ export async function login(): Promise<void> {
   console.log('[coc] logged in to Clash of Clans API');
 }
 
+// Memoized login promise — safe to call from serverless handlers.
+export function ready(): Promise<void> {
+  if (!loginPromise) {
+    loginPromise = login().catch((e) => {
+      loginPromise = null;
+      throw e;
+    });
+  }
+  return loginPromise;
+}
+
 export function isReady(): boolean {
   return loggedIn;
 }
 
 export async function reload(): Promise<void> {
   loggedIn = false;
+  loginPromise = null;
   await login();
 }

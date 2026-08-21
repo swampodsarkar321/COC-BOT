@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "installCommand": "cd server && npm install && cd ../web && npm install",
+  "buildCommand": "cd server && npx tsc || true && cd ../web && npm run build",
+  "outputDirectory": "web/dist",
+  "functions": {
+    "api/[...path].ts": {
+      "includeFiles": ["server/dist/**"]
+    }
+  }
+}

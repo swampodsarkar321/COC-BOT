@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { login, isReady } from './coc.js';
+import { ready, isReady } from './coc.js';
 import clanRoutes from './routes/clan.js';
 import warRoutes from './routes/war.js';
 import cwlRoutes from './routes/cwl.js';
@@ -42,10 +42,15 @@ app.use((err: unknown, _req: express.Request, res: express.Response, _next: expr
   res.status(500).json({ error: message });
 });
 
-app.listen(port, () => {
-  console.log(`[server] listening on http://localhost:${port}`);
-});
+export { app };
 
-login().catch((err) => {
+// Do not start a long-running server when running as a Vercel serverless function.
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`[server] listening on http://localhost:${port}`);
+  });
+}
+
+ready().catch((err) => {
   console.error('[server] COC login failed (server still running):', err instanceof Error ? err.message : err);
 });
