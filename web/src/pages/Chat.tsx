@@ -18,6 +18,18 @@ import {
 
 const norm = (raw: string) => `#${raw.toUpperCase().replace(/^#+/, '')}`;
 
+function errMsg(e: any): string {
+  const d = e?.response?.data;
+  if (typeof d === 'string') return d.slice(0, 300);
+  const known = d?.error ?? d?.message ?? d?.reason ?? e?.message;
+  if (known) return String(known);
+  try {
+    return JSON.stringify(d ?? e)?.slice(0, 300) ?? 'Unknown error';
+  } catch {
+    return 'Unknown error';
+  }
+}
+
 type Msg = { from: 'me' | 'bot'; text?: string; full?: string; expanded?: boolean; player?: any; clan?: any };
 
 const TAG_CMDS = ['/clan', '/player', '/war', '/cwl', '/capital', '/battlelog', '/legend'];
@@ -185,7 +197,7 @@ async function runCommand(input: string): Promise<string> {
         return `Unknown command: ${cmd}\nType /help to see commands.`;
     }
   } catch (e: any) {
-    return `Error: ${e?.response?.data?.error ?? e?.message ?? e}`;
+    return `Error: ${errMsg(e)}`;
   }
 }
 
@@ -230,7 +242,7 @@ export default function Chat() {
       const data = await getPlayer(nt);
       setMessages((m) => [...m, { from: 'bot', player: data }]);
     } catch (e: any) {
-      pushBot('❌ ' + (e?.response?.data?.error ?? e?.message ?? 'Failed to load player'));
+      pushBot('❌ ' + errMsg(e));
     }
   };
 
@@ -241,7 +253,7 @@ export default function Chat() {
       const data = await getClan(nt);
       setMessages((m) => [...m, { from: 'bot', clan: data }]);
     } catch (e: any) {
-      pushBot('❌ ' + (e?.response?.data?.error ?? e?.message ?? 'Failed to load clan'));
+      pushBot('❌ ' + errMsg(e));
     }
   };
 
